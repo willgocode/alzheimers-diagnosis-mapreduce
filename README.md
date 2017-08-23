@@ -71,32 +71,52 @@ Make sure that you have [Homebrew](https://brew.sh) installed.
  hdfs namenode -format
  ```
  
-6. hdfs dfs -mkdir -p ~/<directory name>
-	e.g. hdfs dfs -mkdir inputfiles
+6. Create a directory to store your files on HDFS:
+	```none
+	hdfs dfs -mkdir -p ~/<directory name>
+	```
+	**e.g.** ```hdfs dfs -mkdir inputfiles```
 
-	CHECK
+	**CHECK**
+
+	```none
 	hdfs dfs -ls hdfs://localhost:9000/user/…/<new directory name>
+	```
 
-	e.g. hdfs dfs -ls hdfs://localhost:9000/user/Elizabeth/inputfiles
+	**e.g.** ```hdfs dfs -ls hdfs://localhost:9000/user/Elizabeth/inputfiles```
 
-7. hdfs dfs -put ~/<file location path on computer> <directory name>/<file name>
-	where <file name> = ROSMAP_RNASeq_entrez.csv, gene_cluster.csv
+7. Place the input files in the new directory:
+	```none
+	hdfs dfs -put ~/<file location path on computer> <directory name>/<file name>
+	```
 	
-	e.g. hdfs dfs -put ~/Documents/BigData/Project2/ROSMAP_RNASeq_entrez.csv 	    inputfiles/ROSMAP_RNASeq_entrez.csv
-		 hdfs dfs -put ~/Documents/BigData/Project2/gene_cluster.csv inputfiles/		 gene_cluster.csv
+	**e.g.**
+	```none
+	hdfs dfs -put ~/Documents/BigData/Project2/ROSMAP_RNASeq_entrez.csv inputfiles/ROSMAP_RNASeq_entrez.csv
+	hdfs dfs -put ~/Documents/BigData/Project2/gene_cluster.csv inputfiles/gene_cluster.csv
+	```
 
-8. hdfs namenode
-9. hdfs datanode (in a new terminal window)
+8. Run the HDFS master node in a terminal window: 
+	```none
+	hdfs namenode
+	```
+	
+9. While the ```namenode``` is still running, run the HDFS data storage node in a new terminal tab/window:
+	```none
+	hdfs datanode
+	```
 
-10. In the .py file, change the file paths to:
-	file1 = “hdfs://localhost:9000/user/…/<directory name>/ROSMAP_RNASeq_entrez.csv”
-	file2 = “hdfs://localhost:9000/user/…/<directory name>/gene_cluster.csv”
-
-	e.g.
-		file_rosmap = "hdfs://localhost:9000/user/Elizabeth/inputfiles/ROSMAP_RNASeq_entrez.csv"
-		file_gene_cluster = "hdfs://localhost:9000/user/Elizabeth/inputfiles/gene_cluster.csv"
-
- 
+10. Finally, in the ```map_clusters.py``` file, change the file paths to:
+	```none
+	file_rosmap = “hdfs://localhost:9000/user/…/<directory name>/ROSMAP_RNASeq_entrez.csv”
+	file_gene_cluster = “hdfs://localhost:9000/user/…/<directory name>/gene_cluster.csv”
+	```
+	
+	**e.g.**
+	```none
+	file_rosmap = "hdfs://localhost:9000/user/Elizabeth/inputfiles/ROSMAP_RNASeq_entrez.csv"
+	file_gene_cluster = "hdfs://localhost:9000/user/Elizabeth/inputfiles/gene_cluster.csv"
+	```
 
 ### Spark Setup
 
